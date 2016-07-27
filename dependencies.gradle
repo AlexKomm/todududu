@@ -1,0 +1,14 @@
+ext.versions = [
+        androidGradlePlugin: '2.1.2',
+        jacocoGradlePlugin: '0.7.6.201602180812',
+        errorProneCoreVersion: '2.0.9',
+        errorProneVersion: '0.0.8',
+        versionsGradlePlugin: '0.13.0'
+]
+
+ext.gradlePlugins = [
+        android: "com.android.tools.build:gradle:$versions.androidGradlePlugin",
+        jacoco: "org.jacoco:org.jacoco.core:$versions.jacocoGradlePlugin",
+        errorProne: "net.ltgt.gradle:gradle-errorprone-plugin:$versions.errorProneVersion",
+        versions: "com.github.ben-manes:gradle-versions-plugin:$versions.versionsGradlePlugin"
+];

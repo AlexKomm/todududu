@@ -1,14 +1,27 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: 'dependencies.gradle';
 
 buildscript {
+    apply from: 'dependencies.gradle';
+
     repositories {
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
+        // Android
+        classpath gradlePlugins.android
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        // Code coverage.
+        classpath gradlePlugins.jacoco
+
+        // Error-prone compiler
+        classpath gradlePlugins.errorProne
+
+        // Dependencies version checker
+        classpath gradlePlugins.versions
     }
 }
 
@@ -16,8 +29,63 @@ allprojects {
     repositories {
         jcenter()
     }
+
+    // Workaround to prevent Gradle from stealing focus from other apps during tests run/etc.
+    // https://gist.github.com/artem-zinnatullin/4c250e04636e25797165
+    tasks.withType(JavaForkOptions) {
+        jvmArgs '-Djava.awt.headless=true'
+    }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+// TODO Read about predexing
+ext.preDexLibs = !project.hasProperty('disablePreDex')
+
+subprojects {
+    project.plugins.whenPluginAdded { plugin ->
+        if ('com.android.build.gradle.AppPlugin'.equals(plugin.class.name) || 'com.android.build.gradle.LibraryPlugin'.equals(plugin.class.name)) {
+            // enable or disable pre-dexing
+            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
+        }
+    }
+
+    // http://errorprone.info/
+    // https://github.com/tbroyer/gradle-errorprone-plugin
+    // TODO Read about error prone compiling
+    project.plugins.apply('net.ltgt.errorprone')
+
+    configurations.errorprone {
+        resolutionStrategy.force "com.google.errorprone:error_prone_core:${versions.errorProneCoreVersion}"
+    }
+
+    afterEvaluate {
+        tasks.findByName('pmd').dependsOn('assemble')
+        tasks.findByName('findbugs').dependsOn('assemble')
+
+        def checkTask = tasks.findByName('check')
+
+        checkTask.dependsOn('pmd')
+        checkTask.dependsOn('findbugs')
+        checkTask.dependsOn('checkstyle')
+
+
+        // TODO https://github.com/ben-manes/gradle-versions-plugin
+        dependencyUpdates.outputDir = new File("${projectDir}/build/reports/versions")
+
+
+        // Log instrumentation tests results.
+        tasks.withType(com.android.build.gradle.internal.tasks.AndroidTestTask) { task ->
+            task.doFirst {
+                logging.level = LogLevel.INFO
+            }
+            task.doLast {
+                logging.level = LogLevel.LIFECYCLE
+            }
+        }
+    }
+}
+
+
