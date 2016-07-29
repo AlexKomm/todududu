@@ -1,0 +1,39 @@
+# Disabling sudo moves build to the Container Based Infrastructure on Travis CI
+sudo: false
+
+language: android
+jdk: oraclejdk8
+
+android:
+  components:
+    - platform-tools
+    - tools
+    - android-24
+    - build-tools-24.0.1
+    - extra-android-m2repository
+    - extra-android-support
+
+#    - sys-img-armeabi-v7a-android-18
+#
+#before_script:
+#  - echo no | android create avd --force -n test -t android-18 --abi armeabi-v7a
+#  - emulator -avd test -no-skin -no-audio -no-window &
+#  - android-wait-for-emulator
+#  - adb shell input keyevent 82
+
+before_install:
+  - pip install --user codecov
+
+script:
+  - ./gradlew clean build connectedAndroidTest -PdisablePreDex -PwithDexcount
+
+after_success:
+  - codecov
+
+notifications:
+  email: true
+
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.gradle

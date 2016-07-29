@@ -11,6 +11,12 @@ buildscript {
         }
     }
     dependencies {
+        // Apt
+        classpath gradlePlugins.apt
+
+        // Retrolambda
+        classpath gradlePlugins.retrolambda
+
         // Android
         classpath gradlePlugins.android
 
@@ -22,7 +28,22 @@ buildscript {
 
         // Dependencies version checker
         classpath gradlePlugins.versions
+
+        // Method count plugin for android projects
+        classpath gradlePlugins.dexcount
+
+        // Paperwork
+        classpath gradlePlugins.paperwork
+
+        // Needed for Lint + Retrolambda.
+        classpath gradlePlugins.lombok
+
+        // Performance metrics library for Android development.
+        classpath gradlePlugins.androidDevMetrics
     }
+
+    // Part of workaround for Lint + Retrolambda.
+    configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }
 
 allprojects {
@@ -74,7 +95,6 @@ subprojects {
 
         // TODO https://github.com/ben-manes/gradle-versions-plugin
         dependencyUpdates.outputDir = new File("${projectDir}/build/reports/versions")
-
 
         // Log instrumentation tests results.
         tasks.withType(com.android.build.gradle.internal.tasks.AndroidTestTask) { task ->
