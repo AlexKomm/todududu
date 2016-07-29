@@ -76,9 +76,8 @@ android {
         warningsAsErrors true
         abortOnError true // Fail early.
 
+        disable 'InvalidPackage'
         disable 'GoogleAppIndexingWarning'
-
-        lintConfig rootProject.file('gradle/lint.xml')
     }
 
     packagingOptions {
