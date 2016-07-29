@@ -14,10 +14,10 @@ android:
     - extra-android-m2repository
     - extra-android-support
 
-    - sys-img-armeabi-v7a-android-24
+    - sys-img-armeabi-v7a-android-18
 
 before_script:
-  - echo no | android create avd --force -n test -t android-24 --abi armeabi-v7a
+  - echo no | android create avd --force -n test -t android-18 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82
@@ -26,7 +26,7 @@ before_install:
   - pip install --user codecov
 
 script:
-  - ./gradlew clean build -PdisablePreDex -PwithDexcount
+  - ./gradlew clean build connectedAndroidTest -PdisablePreDex -PwithDexcount
 
 after_success:
   - codecov
@@ -34,7 +34,9 @@ after_success:
 notifications:
   email: true
 
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
-    - $HOME/.m2
-    - $HOME/.gradle
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
