@@ -25,7 +25,7 @@ before_install:
   - pip install --user codecov
 
 script:
-  - ./gradlew clean build --debug -PdisablePreDex -PwithDexcount
+  - ./gradlew clean build -PdisablePreDex -PwithDexcount
 
 after_success:
   - codecov
