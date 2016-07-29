@@ -5,6 +5,7 @@ apply from: '../code_quality_tools/jacoco.gradle'
 apply from: '../code_quality_tools/quality.gradle'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'hu.supercluster.paperwork'
+apply plugin: 'com.frogermcs.androiddevmetrics'
 
 // Settings for paperwork plugin
 paperwork {
@@ -74,6 +75,10 @@ android {
     lintOptions {
         warningsAsErrors true
         abortOnError true // Fail early.
+
+        disable 'GoogleAppIndexingWarning'
+
+        lintConfig rootProject.file('gradle/lint.xml')
     }
 
     packagingOptions {
