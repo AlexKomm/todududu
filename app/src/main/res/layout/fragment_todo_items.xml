@@ -1,0 +1,27 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tk.alexkomm.todududu.ui.fragments.TodoItemsFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/todo_items_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_todo_item_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/material_component_floating_action_button_margin"
+        android:src="@drawable/note_plus"
+        app:fabSize="normal"
+        app:layout_anchor="@id/todo_items_recyclerview"
+        app:layout_anchorGravity="bottom|right|end" />
+
+</FrameLayout>

@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.tasks.AndroidTestTask
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: 'dependencies.gradle';
 
@@ -49,6 +51,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url "https://jitpack.io"
+        }
     }
 
     // Workaround to prevent Gradle from stealing focus from other apps during tests run/etc.
@@ -95,16 +100,6 @@ subprojects {
 
         // TODO https://github.com/ben-manes/gradle-versions-plugin
         dependencyUpdates.outputDir = new File("${projectDir}/build/reports/versions")
-
-        // Log instrumentation tests results.
-        tasks.withType(com.android.build.gradle.internal.tasks.AndroidTestTask) { task ->
-            task.doFirst {
-                logging.level = LogLevel.INFO
-            }
-            task.doLast {
-                logging.level = LogLevel.LIFECYCLE
-            }
-        }
     }
 }
 

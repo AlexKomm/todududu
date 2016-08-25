@@ -10,7 +10,7 @@ apply plugin: 'com.frogermcs.androiddevmetrics'
 // Settings for paperwork plugin
 paperwork {
     set = [
-            gitSha:    gitSha(),
+            gitSha   : gitSha(),
             buildDate: buildTime("dd-MM-yyyy HH:00:00 z", "UTC"),
     ]
 }
@@ -104,6 +104,7 @@ dependencies {
     apt libraries.daggerCompiler
 
     compile libraries.rxJava
+    compile libraries.rxAndroid
     compile libraries.rxLint
 
     compile libraries.okHttp
@@ -127,6 +128,10 @@ dependencies {
     compile libraries.picasso
     compile libraries.picassoOkHttpDownloader
     compile libraries.timber
+
+    compile libraries.everytime
+
+    compile libraries.materialDimens
 
     // Developer tools (Developer Settings)
     debugCompile libraries.okHttpLoggingInterceptor
@@ -158,13 +163,13 @@ dependencies {
     androidTestCompile libraries.okHttpMockWebServer
 }
 
+//noinspection GroovyAssignabilityCheck
 configurations.all {
     resolutionStrategy {
         // Force our version of support-annotations, we have a conflict between app and androidTest dependency resolution.
         force libraries.supportAnnotations, libraries.supportAppCompat, libraries.supportDesign
     }
 }
-
 
 // Check if the build requires dex count
 def withDexcount = project.hasProperty('withDexcount')
