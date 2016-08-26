@@ -9,4 +9,4 @@ dependencies:
 test:
   override:
     - ./gradlew clean build connectedAndroidTest -PdisablePreDex -PwithDexcount --console=plain
-    - cp -r app/build/test-results/* $CIRCLE_TEST_REPORTS
+    - cp -r app/build/reports/* $CIRCLE_TEST_REPORTS
