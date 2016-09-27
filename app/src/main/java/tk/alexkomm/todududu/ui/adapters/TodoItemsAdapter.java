@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import tk.alexkomm.todududu.R;
-import tk.alexkomm.todududu.api.entities.TodoItem;
+import tk.alexkomm.todududu.data.entities.TodoItem;
 
 public class TodoItemsAdapter extends RecyclerView.Adapter<TodoItemsViewHolder> {
 
@@ -28,7 +28,8 @@ public class TodoItemsAdapter extends RecyclerView.Adapter<TodoItemsViewHolder> 
 
     @Override
     public TodoItemsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new TodoItemsViewHolder(layoutInflater.inflate(R.layout.todo_list_item, parent, false));
+        return new TodoItemsViewHolder(layoutInflater.inflate(R.layout.todo_list_item, parent,
+                false));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package tk.alexkomm.todududu.api.entities;
+package tk.alexkomm.todududu.data.entities;
 
 import com.google.auto.value.AutoValue;
 
@@ -20,6 +20,7 @@ public abstract class TodoItem {
 
     public abstract boolean reminder();
 
+    @SuppressWarnings("WeakerAccess")
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Builder id(int id);

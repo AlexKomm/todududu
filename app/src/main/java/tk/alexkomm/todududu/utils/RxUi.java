@@ -29,8 +29,8 @@ public final class RxUi {
      * @param <T>        type of {@link Observable} emission.
      * @return {@link Subscription} that can be used to unsubscribe and stop bound action.
      */
-    public static <T> Subscription bind(Observable<T> observable,
-                                        Func1<Observable<T>, Subscription> uiFunc) {
+    public static <T> Subscription bind(Observable<T> observable, Func1<Observable<T>,
+            Subscription> uiFunc) {
         return uiFunc.call(observable);
     }
 
@@ -38,7 +38,8 @@ public final class RxUi {
      * Wraps passed UI action into function that binds {@link Observable} to UI action on Main
      * Thread.
      *
-     * @param uiAction action that performs some UI interaction on Main Thread, like setting text to
+     * @param uiAction action that performs some UI interaction on Main Thread, like setting text
+     *                 to
      *                 {@link android.widget.TextView} and so on.
      * @param <T>      type of {@link Observable} emission.
      * @return {@link Func1} that can be used to {@link #bind(Observable, Func1)} {@link Observable}
@@ -54,7 +55,8 @@ public final class RxUi {
      * Thread
      * limitation. Should be used only for testing purposes!!
      *
-     * @param uiAction action that performs some UI interaction on Main Thread, like setting text to
+     * @param uiAction action that performs some UI interaction on Main Thread, like setting text
+     *                 to
      *                 {@link android.widget.TextView} and so on.
      * @param <T>      type of {@link Observable} emission.
      * @return {@link Func1} that can be used to {@link #bind(Observable, Func1)} {@link Observable}

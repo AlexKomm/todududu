@@ -1,4 +1,4 @@
-package tk.alexkomm.todududu.api.entities;
+package tk.alexkomm.todududu.data.entities;
 
 import org.junit.Test;
 

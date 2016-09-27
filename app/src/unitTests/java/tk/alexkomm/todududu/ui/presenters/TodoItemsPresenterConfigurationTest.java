@@ -9,8 +9,7 @@ public class TodoItemsPresenterConfigurationTest {
 
     @Test
     public void hashCode_equals_shouldWorkCorrectly() {
-        EqualsVerifier.forClass(AutoValue_TodoItemsPresenterConfiguration.class)
-                .suppress(Warning.NULL_FIELDS)
-                .verify();
+        EqualsVerifier.forClass(AutoValue_TodoItemsPresenterConfiguration.class).suppress(Warning
+                .NULL_FIELDS).verify();
     }
 }

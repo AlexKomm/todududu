@@ -24,7 +24,6 @@ public class TodududuApplication extends Application {
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
-
             AndroidDevMetrics.initWith(this);
         }
     }

@@ -7,16 +7,16 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class ApplicationModule {
+class ApplicationModule {
 
     private final Application mApplication;
 
-    public ApplicationModule(Application application) {
+    ApplicationModule(Application application) {
         mApplication = application;
     }
 
     @Provides
-    public Context provideContext() {
+    Context provideContext() {
         return mApplication;
     }
 

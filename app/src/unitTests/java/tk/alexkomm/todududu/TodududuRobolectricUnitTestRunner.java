@@ -26,12 +26,21 @@ public class TodududuRobolectricUnitTestRunner extends RobolectricTestRunner {
     public Config getConfig(Method method) {
         Config defaultConfig = super.getConfig(method);
 
-        return new Config.Implementation(new int[]{SDK_EMULATE_LEVEL}, defaultConfig.manifest(),
-                defaultConfig.qualifiers(), defaultConfig.packageName(), defaultConfig.abiSplit(),
-                defaultConfig.resourceDir(), defaultConfig.assetDir(), defaultConfig.buildDir(),
-                defaultConfig.shadows(), defaultConfig.instrumentedPackages(), TodududuApplication.class,
+        return new Config.Implementation(
+                new int[]{SDK_EMULATE_LEVEL},
+                defaultConfig.manifest(),
+                defaultConfig.qualifiers(),
+                defaultConfig.packageName(),
+                defaultConfig.abiSplit(),
+                defaultConfig.resourceDir(),
+                defaultConfig.assetDir(),
+                defaultConfig.buildDir(),
+                defaultConfig.shadows(),
+                defaultConfig.instrumentedPackages(),
+                TodududuApplication.class,
                 // Can be overriden
                 defaultConfig.libraries(),
-                defaultConfig.constants() == Void.class ? BuildConfig.class : defaultConfig.constants());
+                defaultConfig.constants() == Void.class ? BuildConfig.class : defaultConfig.constants()
+        );
     }
 }

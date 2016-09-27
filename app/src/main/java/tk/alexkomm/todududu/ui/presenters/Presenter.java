@@ -15,8 +15,8 @@ import rx.subscriptions.CompositeSubscription;
 public class Presenter<V> {
 
     @NonNull
-    private final CompositeSubscription subscriptionsToUnsubscribeOnUnbindView =
-            new CompositeSubscription();
+    private final CompositeSubscription subscriptionsToUnsubscribeOnUnbindView = new
+            CompositeSubscription();
 
     @Nullable
     private volatile V view;
@@ -24,14 +24,15 @@ public class Presenter<V> {
     @CallSuper
     public void bindView(@NonNull V view) {
         if (this.view != null) {
-            throw new IllegalStateException("Previous view is not unbounded! previous view = " + this.view);
+            throw new IllegalStateException("Previous view is not unbounded! previous view = " +
+                    this.view);
         }
 
         this.view = view;
     }
 
-    protected final void unsubscribeOnUnbindView(@NonNull Subscription subscription,
-                                                 @NonNull Subscription... subscriptions) {
+    final void unsubscribeOnUnbindView(@NonNull Subscription subscription, @NonNull
+            Subscription... subscriptions) {
         subscriptionsToUnsubscribeOnUnbindView.add(subscription);
 
         for (Subscription s : subscriptions) {
@@ -40,14 +41,14 @@ public class Presenter<V> {
     }
 
     @CallSuper
-    public void unbindView(@NonNull V view) {
+    void unbindView(@NonNull V view) {
         final V previousView = this.view;
 
         if (previousView != null && previousView.equals(view)) {
             this.view = null;
         } else {
-            throw new IllegalStateException(
-                    "Unexpected view! previous view = " + this.view + ", view to unbind = " + view);
+            throw new IllegalStateException("Unexpected view! previous view = " + this.view + ", " +
+                    "view to unbind = " + view);
         }
 
         subscriptionsToUnsubscribeOnUnbindView.clear();

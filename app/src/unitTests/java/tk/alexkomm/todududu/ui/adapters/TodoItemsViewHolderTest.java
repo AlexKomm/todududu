@@ -12,7 +12,7 @@ import java.util.Date;
 
 import tk.alexkomm.todududu.R;
 import tk.alexkomm.todududu.TodududuRobolectricUnitTestRunner;
-import tk.alexkomm.todududu.api.entities.TodoItem;
+import tk.alexkomm.todududu.data.entities.TodoItem;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -36,13 +36,8 @@ public class TodoItemsViewHolderTest {
 
         viewHolder = new TodoItemsViewHolder(itemView);
 
-        item = TodoItem.builder()
-                .id(1)
-                .note("Note 1")
-                .color(Color.BLUE)
-                .date(new Date())
-                .reminder(false)
-                .build();
+        item = TodoItem.builder().id(1).note("Note 1").color(Color.BLUE).date(new Date())
+                .reminder(false).build();
     }
 
     @Test

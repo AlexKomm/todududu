@@ -10,7 +10,7 @@ import java.util.List;
 
 import rx.Observable;
 import rx.schedulers.Schedulers;
-import tk.alexkomm.todududu.api.entities.TodoItem;
+import tk.alexkomm.todududu.data.entities.TodoItem;
 import tk.alexkomm.todududu.models.TodoItemsModel;
 import tk.alexkomm.todududu.ui.views.TodoItemTestView;
 import tk.alexkomm.todududu.utils.rxtask.Result;
@@ -31,8 +31,8 @@ public class TodoItemsPresenterTest {
     @Before
     public void beforeEachTest() {
 
-        TodoItemsPresenterConfiguration configuration =
-                TodoItemsPresenterConfiguration.builder().ioScheduler(Schedulers.immediate()).build();
+        TodoItemsPresenterConfiguration configuration = TodoItemsPresenterConfiguration.builder()
+                .ioScheduler(Schedulers.immediate()).build();
 
         itemsModel = mock(TodoItemsModel.class);
         todoItemsView = new TodoItemTestView();
@@ -52,19 +52,9 @@ public class TodoItemsPresenterTest {
 
     @Test
     public void reloadData_shouldSendDataToTheView() {
-        List<TodoItem> items = asList(TodoItem.builder()
-                .id(1)
-                .note("Note 1")
-                .color(Color.BLUE)
-                .date(new Date())
-                .reminder(false)
-                .build(), TodoItem.builder()
-                .id(2)
-                .note("Note " + "2")
-                .color(Color.BLUE)
-                .date(new Date())
-                .reminder(false)
-                .build());
+        List<TodoItem> items = asList(TodoItem.builder().id(1).note("Note 1").color(Color.BLUE)
+                .date(new Date()).reminder(false).build(), TodoItem.builder().id(2).note("Note "
+                + "2").color(Color.BLUE).date(new Date()).reminder(false).build());
 
         when(itemsModel.getAll()).thenReturn(Observable.defer(() -> Observable.just(items)));
 

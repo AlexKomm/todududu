@@ -35,6 +35,7 @@ import tk.alexkomm.todududu.utils.rxtask.Result;
 public class TodoItemsFragment extends BaseFragment implements TodoItemsView {
     @BindView(R.id.todo_items_recyclerview)
     RecyclerView todoItemsRecyclerView;
+
     @Inject
     TodoItemsPresenter todoItemsPresenter;
 
@@ -44,15 +45,13 @@ public class TodoItemsFragment extends BaseFragment implements TodoItemsView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TodududuApplication.get(getContext())
-                .getApplicationComponent()
-                .plus(new TodoItemsFragmentModule())
-                .inject(this);
+        TodududuApplication.get(getContext()).getApplicationComponent().plus(new
+                TodoItemsFragmentModule()).inject(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
         return inflater.inflate(R.layout.fragment_todo_items, container, false);
     }
 
@@ -60,8 +59,8 @@ public class TodoItemsFragment extends BaseFragment implements TodoItemsView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         unbinder = ButterKnife.bind(this, view);
 
-        todoItemsRecyclerView.setLayoutManager(
-                new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        todoItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.VERTICAL, false));
         todoItemsAdapter = new TodoItemsAdapter(getActivity().getLayoutInflater());
         todoItemsRecyclerView.setAdapter(todoItemsAdapter);
 
@@ -84,8 +83,8 @@ public class TodoItemsFragment extends BaseFragment implements TodoItemsView {
         return RxUi.ui(error -> {
             String message = error.getThrowable().getMessage();
 
-            Snackbar.make(getActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
-                    .show();
+            Snackbar.make(getActivity().findViewById(android.R.id.content), message, Snackbar
+                    .LENGTH_LONG).show();
         });
     }
 
@@ -100,14 +99,13 @@ public class TodoItemsFragment extends BaseFragment implements TodoItemsView {
 
     @Override
     public Func1<Observable<Void>, Subscription> showLoadingUi() {
-        return RxUi.ui(
-                aVoid -> Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.loading,
-                        Snackbar.LENGTH_LONG).show());
+        return RxUi.ui(aVoid -> Snackbar.make(getActivity().findViewById(android.R.id.content), R
+                .string.loading, Snackbar.LENGTH_LONG).show());
     }
 
     @Subcomponent(modules = TodoItemsFragmentModule.class)
     public interface TodoItemsFragmentComponent {
-        void inject(@NonNull TodoItemsFragment todoItemsFragment);
+        void inject(TodoItemsFragment todoItemsFragment);
     }
 
     @Module
@@ -115,9 +113,8 @@ public class TodoItemsFragment extends BaseFragment implements TodoItemsView {
 
         @Provides
         @NonNull
-        public TodoItemsPresenter providesTodoItemsPresenter(@NonNull TodoItemsModel itemsModel) {
-            return new TodoItemsPresenter(itemsModel,
-                    TodoItemsPresenterConfiguration.builder().ioScheduler(Schedulers.io()).build());
+        TodoItemsPresenter providesTodoItemsPresenter(@NonNull TodoItemsModel itemsModel) {
+            return new TodoItemsPresenter(itemsModel, TodoItemsPresenterConfiguration.builder().ioScheduler(Schedulers.io()).build());
         }
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 
 import tk.alexkomm.todududu.R;
 import tk.alexkomm.todududu.TodududuRobolectricUnitTestRunner;
-import tk.alexkomm.todududu.api.entities.TodoItem;
+import tk.alexkomm.todududu.data.entities.TodoItem;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -71,19 +71,9 @@ public class TodoItemsAdapterTest {
 
     @Test
     public void onBindViewHolder_shouldBindItemsToTheViewHolders() {
-        List<TodoItem> items = asList(TodoItem.builder()
-                .id(1)
-                .note("Note 1")
-                .color(Color.BLUE)
-                .date(new Date())
-                .reminder(false)
-                .build(), TodoItem.builder()
-                .id(2)
-                .note("Note 2")
-                .color(Color.BLUE)
-                .date(new Date())
-                .reminder(false)
-                .build());
+        List<TodoItem> items = asList(TodoItem.builder().id(1).note("Note 1").color(Color.BLUE)
+                .date(new Date()).reminder(false).build(), TodoItem.builder().id(2).note("Note "
+                + "2").color(Color.BLUE).date(new Date()).reminder(false).build());
 
         todoItemsAdapter.setData(items);
 
