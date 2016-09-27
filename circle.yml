@@ -8,5 +8,6 @@ dependencies:
 
 test:
   override:
-    - ./gradlew clean build connectedAndroidTest -PdisablePreDex -PwithDexcount --console=plain
+    - ./gradlew clean build -PdisablePreDex -PwithDexcount --console=plain
+    - pip install --user codecov && codecov
     - cp -r app/build/reports/* $CIRCLE_TEST_REPORTS
