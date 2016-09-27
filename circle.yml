@@ -8,7 +8,6 @@ dependencies:
 
 test:
   override:
-    - ./gradlew clean build -PdisablePreDex -PwithDexcount --console=plain
     - sh ci.sh
     - cp -r app/build/reports/* $CIRCLE_TEST_REPORTS
   post:
