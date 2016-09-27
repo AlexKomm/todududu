@@ -26,7 +26,7 @@ before_install:
   - pip install --user codecov
 
 script:
-  - ./gradlew clean build connectedAndroidTest -PdisablePreDex -PwithDexcount
+  - sh ci.sh
 
 after_success:
   - codecov

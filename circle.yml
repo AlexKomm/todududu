@@ -9,5 +9,6 @@ dependencies:
 test:
   override:
     - ./gradlew clean build -PdisablePreDex -PwithDexcount --console=plain
+    - sh ci.sh
     - pip install --user codecov && codecov
     - cp -r app/build/reports/* $CIRCLE_TEST_REPORTS
